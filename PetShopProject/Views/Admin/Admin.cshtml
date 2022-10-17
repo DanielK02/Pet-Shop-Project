@@ -1,0 +1,52 @@
+﻿@{
+    @model ICollection<PetShopProject.Models.Animal>;
+    ViewBag.Title = "Adminstrator";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin</title>
+</head>
+<body>
+    <div class="container text-center">
+        <label for="categoryForm">Please select a category:</label>
+        <form name="categoryForm">
+            @Html.DropDownList("id", new SelectList(ViewBag.Categories, "CategoryId", "Name"), "All", new { onchange = "categoryForm.submit()" })
+        </form>
+    </div>
+    <div class="container text-center">
+        @using (Html.BeginForm("create", "admin"))
+        {<button>Add New</button>}
+    </div>
+    <div class="container text-center">
+        <table class="table">
+            <tr>
+                <th>Portrait</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Description</th>
+            </tr>
+            @foreach (var animal in Model)
+            {
+                <tr>
+                    <td><img src="@animal.ImagePath" height="150" @*width="150"*@ alt="@animal.Name"/></td>
+                    <td>@animal.Name</td>
+                    <td>@animal.Age</td>
+                    <td>@animal.Description</td>
+                    <td>
+                        @using (Html.BeginForm("edit", "admin", new { id = animal.AnimalId }))
+                        {<button>Edit</button>}
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("delete", "admin", new { id = animal.AnimalId }))
+                        {<button>Delete</button>}
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿@{
+    @model PetShopProject.Models.Animal;
+    ViewBag.Title = Model.Name;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Animals</title>
+</head>
+<body>
+    <div class="container text-center">
+        <h4>Portrait: </h4>
+        <img src=@Model.ImagePath alt="@Model.Name" height="300">
+        <h4>Animal Name: @Model.Name</h4>
+        <h4>Age: @Model.Age</h4>
+        <h4>Description: @Model.Description</h4>
+        <h4>Category: @ViewBag.Categories.Name</h4>
+    </div>
+    <br />
+    <div class="container text-center">
+        <h1><u><b>Comments:</b></u></h1>
+        @foreach (var item in Model.Comments.OrderByDescending(c => c.CommentId))
+        {
+            <h5>@item.Comment</h5>
+        }
+    </div>
+    <br />
+    <div class="container text-center">
+        @using (Html.BeginForm("animal", "catalog", new { id = Model.AnimalId }))
+        {
+            <label for="commentBox"></label>
+            <br />
+            <input id="commentBox" name="commentText" type="text" placeholder="Enter your comment" />
+            <input type="submit" name="Submit" value="Submit" />
+        }
+    </div>
+</body>
+</html>

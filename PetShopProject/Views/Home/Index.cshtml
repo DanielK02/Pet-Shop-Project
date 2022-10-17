@@ -1,0 +1,36 @@
+﻿@{
+    @model ICollection<PetShopProject.Models.Animal>;
+    ViewBag.Title = "Home Page";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="container text-center">
+        <h4>The two most highly rated animals today are:</h4>
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Number Of Comments</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src=@item.ImagePath height="150" width="150"></td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Comments.ToList().Count</td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

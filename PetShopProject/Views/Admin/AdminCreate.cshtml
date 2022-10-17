@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Add New Animal";
+    @model PetShopProject.Models.Animal;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="container text-center">
+    @using (Html.BeginForm("CreatePost", "admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.Label("Name: ")
+        @Html.TextBox("Name")
+        <br />
+        @Html.Label("Age: ")
+        @Html.TextBox("Age")
+        <br />
+        @Html.Label("Description: ")
+        @Html.TextBox("Description")
+        <br />
+        @Html.Label("CategoryId: ")
+        @Html.DropDownListFor(a => a.CategoryId, new SelectList(ViewBag.Categories, "CategoryId", "Name"))
+        <br />
+        @Html.Label("Image: ")
+        <input name="formFile" type="file" accept="image/*" />
+        <br />
+        <input type="submit" value="Submit" />
+        @Html.ValidationSummary()
+    }
+    </div>
+
+</body>
+</html>
+

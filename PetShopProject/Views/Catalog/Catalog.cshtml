@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Catalog";
+    @model ICollection<PetShopProject.Models.Animal>;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Catalog</title>
+</head>
+<body>
+    <div class="container text-center">
+        <label for="categoryForm">Please select a category:</label>
+        <form name="categoryForm">
+            @*Add to dropdown select all*@
+            @Html.DropDownList("id", new SelectList(ViewBag.Categories, "CategoryId", "Name"),"All" , new { onchange = "categoryForm.submit()" })
+        </form>
+    </div>
+    <div class="container text-center">
+        <table class="table">
+            <tr>
+                <th>Portrait</th>
+                <th>Name</th>
+                <th>Find out more and comment</th>
+            </tr>
+            @foreach (var animal in Model)
+            {
+                <tr>
+                    <td><img src=@animal.ImagePath height="150" @*width="150"*@ alt="@animal.Name"/></td>
+                    <td>@animal.Name</td>
+                    <td>
+                        @using (Html.BeginForm("animal", "catalog", new { id = animal.AnimalId }))
+                        {
+                            <button>Click here for more about @animal.Name</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
